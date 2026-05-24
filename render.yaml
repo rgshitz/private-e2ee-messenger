@@ -1,0 +1,33 @@
+services:
+  - type: web
+    runtime: node
+    name: private-e2ee-messenger
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: "production"
+      - key: HOST
+        value: "0.0.0.0"
+      - key: SERVE_CLIENT_DIST
+        value: "true"
+      - key: CLIENT_DIST_PATH
+        value: "client/dist"
+      - key: STORAGE_DRIVER
+        value: "cloudinary"
+      - key: CLOUDINARY_FOLDER
+        value: "private-e2ee-messenger"
+      - key: MAX_ATTACHMENT_MB
+        value: "25"
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
